@@ -73,7 +73,7 @@ int	parse_input(int argc, char **args, t_stack **stack)
 			val = ft_atoi2(res[j]);
 			if (val < INT_MIN || val > INT_MAX)
 				return (ft_printf("Error\n"), 0);
-			if (find_node(stack, val))
+			if (stack_search(stack, val))
 				return (ft_printf("Error\n"), 0);
 			stack_push(stack, stack_new(val));
 			free(res[j++]);

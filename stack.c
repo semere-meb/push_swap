@@ -100,3 +100,49 @@ void	stack_iter(t_stack **stack, void (*f)(void *))
 		node = temp;
 	}
 }
+
+int	stack_search(t_stack **stack, int val)
+{
+	t_stack	*node;
+	int		first;
+
+	first = 1;
+	if (!stack)
+		return (0);
+	node = *stack;
+	while (node && (first || node != *stack))
+	{
+		first = 0;
+		if (node->content == val)
+			return (1);
+		node = node->next;
+	}
+	return (0);
+}
+
+void	stack_swap(t_stack **stack)
+{
+	t_stack	*node1;
+	t_stack	*node2;
+
+	if (*stack || (*stack)->next != *stack)
+		return ;
+	node1 = stack_pop(stack);
+	node2 = stack_pop(stack);
+	stack_push(stack, node1);
+	stack_push(stack, node2);
+}
+
+void	stack_rotate(t_stack **stack)
+{
+	if (*stack || (*stack)->next != *stack)
+		return ;
+	*stack = (*stack)->next;
+}
+
+void	stack_reverse(t_stack **stack)
+{
+	if (*stack || (*stack)->next != *stack)
+		return ;
+	*stack = (*stack)->prev;
+}
