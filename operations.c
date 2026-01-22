@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   operations.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: semebrah <semebrah@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/22 04:00:54 by semebrah          #+#    #+#             */
+/*   Created: 2026/01/22 04:00:50 by semebrah          #+#    #+#             */
 /*   Updated: 2026/01/22 04:01:18 by semebrah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	main(int argc, char **argv)
+int	find_node(t_stack **stack, int val)
 {
-	t_stack	**stack_a;
-	t_stack	**stack_b;
+	t_stack	*node;
+	int		first;
 
-	if (argc == 1)
-		return (1);
-	stack_a = malloc(sizeof(t_stack *));
-	stack_b = malloc(sizeof(t_stack *));
-	if (!stack_a || !stack_b)
-		return (1);
-	*stack_a = NULL;
-	*stack_b = NULL;
-	if (!parse_input(argc, &argv[1], stack_a))
-		return (1);
-	stack_iter(stack_a, &printval);
-	stack_iter(stack_a, &free);
-	free(stack_a);
-	free(stack_b);
+	first = 1;
+	if (!stack)
+		return (0);
+	node = *stack;
+	while (node && (first || node != *stack))
+	{
+		first = 0;
+		if (node->content == val)
+			return (1);
+		node = node->next;
+	}
+	return (0);
 }

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stack.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: semebrah <semebrah@student.42berlin.de>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/22 04:00:57 by semebrah          #+#    #+#             */
+/*   Updated: 2026/01/22 04:01:18 by semebrah         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-t_stack	*stack_new(void *content)
+t_stack	*stack_new(int val)
 {
 	t_stack	*node;
 
@@ -8,47 +20,47 @@ t_stack	*stack_new(void *content)
 	if (!node)
 		return (NULL);
 	node->prev = NULL;
-	node->content = content;
+	node->content = val;
 	node->next = NULL;
 	return (node);
 }
 
-void	stack_push(t_stack **lst, t_stack *new_node)
+void	stack_push(t_stack **stack, t_stack *node)
 {
 	t_stack	*temp;
 
-	if (!lst || !new_node)
+	if (!stack || !node)
 		return ;
-	temp = *lst;
-	if (!*lst)
+	temp = *stack;
+	if (!*stack)
 	{
-		new_node->prev = new_node;
-		new_node->next = new_node;
+		node->prev = node;
+		node->next = node;
 	}
 	else
 	{
-		new_node->next = temp;
-		new_node->prev = temp->prev;
-		(temp->prev)->next = new_node;
-		temp->prev = new_node;
+		node->next = temp;
+		node->prev = temp->prev;
+		(temp->prev)->next = node;
+		temp->prev = node;
 	}
-	*lst = new_node;
+	*stack = node;
 }
 
-t_stack	*stack_pop(t_stack **lst)
+t_stack	*stack_pop(t_stack **stack)
 {
 	t_stack	*temp;
 
-	if (!lst || !*lst)
+	if (!stack || !*stack)
 		return (NULL);
-	temp = *lst;
+	temp = *stack;
 	if (temp->prev == temp->next)
-		*lst = NULL;
+		*stack = NULL;
 	else
 	{
 		(temp->next)->prev = temp->prev;
 		(temp->prev)->next = temp->next;
-		*lst = temp->next;
+		*stack = temp->next;
 	}
 	return (temp);
 }
@@ -62,11 +74,9 @@ size_t	stack_size(t_stack **stack)
 	if (!stack)
 		return (size);
 	node = *stack;
-	while (node)
+	while (node && (!size || node != *stack))
 	{
 		size++;
-		if (node == node->next)
-			return (size);
 		node = node->next;
 	}
 	return (size);
@@ -75,13 +85,18 @@ size_t	stack_size(t_stack **stack)
 void	stack_iter(t_stack **stack, void (*f)(void *))
 {
 	t_stack	*node;
+	t_stack	*temp;
+	int		first;
 
+	first = 1;
 	if (!stack || !f)
 		return ;
 	node = *stack;
-	while (node)
+	while (node && (first || node != *stack))
 	{
-		f(node->content);
-		node = node->next;
+		first = 0;
+		temp = node->next;
+		f(node);
+		node = temp;
 	}
 }

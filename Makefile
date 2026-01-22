@@ -3,7 +3,7 @@ NAME = push_swap
 LIBFTDIR = libft
 LIBFT = libft.a
 
-SRCS = ft_atoi2.c push_swap.c stack.c
+SRCS = debug.c operations.c push_swap.c stack.c utils.c
 
 OBJS = $(SRCS:.c=.o)
 
