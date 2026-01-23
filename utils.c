@@ -82,3 +82,25 @@ int	parse_input(int argc, char **args, t_stack **stack)
 	}
 	return (1);
 }
+
+int	is_sorted(t_stack **stack_a)
+{
+	t_stack	*head;
+	long	max;
+	int		first;
+
+	max = INT_MIN;
+	first = 1;
+	if (!stack_a)
+		return (1);
+	head = *stack_a;
+	while (head && (first || head != *stack_a))
+	{
+		first = 0;
+		if (head->content < max)
+			return (0);
+		max = head->content;
+		head = head->next;
+	}
+	return (1);
+}

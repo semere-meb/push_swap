@@ -29,6 +29,7 @@ typedef struct s_stack
 long				ft_atoi2(const char *nptr);
 int					is_str_digit(char *str);
 int					parse_input(int argc, char **args, t_stack **stack);
+int					is_sorted(t_stack **stack_a);
 
 // stack.c
 t_stack				*stack_new(int val);
