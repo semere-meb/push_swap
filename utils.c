@@ -13,12 +13,7 @@
 #include "libft/libft.h"
 #include "push_swap.h"
 
-static int	ft_isspace(int c)
-{
-	return (c == 32 || (c >= 9 && c <= 13));
-}
-
-long	ft_atoi2(const char *nptr)
+long	ft_atol(const char *nptr)
 {
 	size_t	i;
 	long	res;
@@ -70,10 +65,10 @@ int	parse_input(int argc, char **args, t_stack **stack)
 		{
 			if (!is_str_digit(res[j]))
 				return (ft_printf("Error\n"), 0);
-			val = ft_atoi2(res[j]);
+			val = ft_atol(res[j]);
 			if (val < INT_MIN || val > INT_MAX)
 				return (ft_printf("Error\n"), 0);
-			if (stack_search(stack, val))
+			if (stack_index(stack, val) != -1)
 				return (ft_printf("Error\n"), 0);
 			stack_push(stack, stack_new(val));
 			free(res[j++]);

@@ -65,9 +65,9 @@ t_stack	*stack_pop(t_stack **stack)
 	return (temp);
 }
 
-size_t	stack_size(t_stack **stack)
+int	stack_size(t_stack **stack)
 {
-	size_t	size;
+	int		size;
 	t_stack	*node;
 
 	size = 0;
@@ -101,23 +101,45 @@ void	stack_iter(t_stack **stack, void (*f)(void *))
 	}
 }
 
-int	stack_search(t_stack **stack, int val)
+t_stack	*stack_val(t_stack **stack, int index)
+{
+	int		size;
+	t_stack	*node;
+
+	size = 0;
+	if (!stack)
+		return (NULL);
+	node = *stack;
+	while (node && (!size || node != *stack))
+	{
+		if (size == index)
+			return (node);
+		size++;
+		node = node->next;
+	}
+	return (NULL);
+}
+
+int	stack_index(t_stack **stack, int val)
 {
 	t_stack	*node;
 	int		first;
+	int		index;
 
+	index = 0;
 	first = 1;
 	if (!stack)
-		return (0);
+		return (-1);
 	node = *stack;
 	while (node && (first || node != *stack))
 	{
 		first = 0;
 		if (node->content == val)
-			return (1);
+			return (index);
 		node = node->next;
+		index++;
 	}
-	return (0);
+	return (-1);
 }
 
 void	stack_swap(t_stack **stack)

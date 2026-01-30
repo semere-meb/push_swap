@@ -13,20 +13,27 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
+# include <stdbool.h>
 # include <stdlib.h>
+# include <unistd.h>
 
 # define INT_MIN -2147483648
 # define INT_MAX 2147483647
 
 typedef struct s_stack
 {
+	int				index;
 	int				content;
+	int				cost;
 	struct s_stack	*prev;
 	struct s_stack	*next;
 }					t_stack;
 
+// sort.c
+void				sort(t_stack **stack_a, t_stack **stack_b);
+
 // utils.c
-long				ft_atoi2(const char *nptr);
+long				ft_atol(const char *nptr);
 int					is_str_digit(char *str);
 int					parse_input(int argc, char **args, t_stack **stack);
 int					is_sorted(t_stack **stack_a);
@@ -35,9 +42,10 @@ int					is_sorted(t_stack **stack_a);
 t_stack				*stack_new(int val);
 void				stack_push(t_stack **stack, t_stack *node);
 t_stack				*stack_pop(t_stack **stack);
-size_t				stack_size(t_stack **stack);
+int					stack_size(t_stack **stack);
 void				stack_iter(t_stack **stack, void (*f)(void *));
-int					stack_search(t_stack **stack, int val);
+t_stack				*stack_val(t_stack **stack, int index);
+int					stack_index(t_stack **stack, int val);
 void				stack_swap(t_stack **stack);
 void				stack_rotate(t_stack **stack);
 void				stack_reverse(t_stack **stack);

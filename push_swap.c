@@ -11,12 +11,12 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include "libft/libft.h"
 
 int	main(int argc, char **argv)
 {
 	t_stack	**stack_a;
 	t_stack	**stack_b;
-	int		ret;
 
 	if (argc == 1)
 		return (1);
@@ -29,9 +29,8 @@ int	main(int argc, char **argv)
 	if (!parse_input(argc, &argv[1], stack_a))
 		return (1);
 	stack_iter(stack_a, &printval);
-	ret = is_sorted(stack_a);
-	stack_iter(stack_a, &free);
-	free(stack_a);
-	free(stack_b);
-	return (ret);
+	ft_printf("\n");
+	if (!is_sorted(stack_a))
+		sort(stack_a, stack_b);
+	return (stack_iter(stack_a, &free), free(stack_a), free(stack_b), 0);
 }
