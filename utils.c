@@ -99,3 +99,53 @@ int	is_sorted(t_stack *stack_a)
 	}
 	return (1);
 }
+
+int	get_min(t_stack *stack)
+{
+	int	index_min;
+	int	index;
+
+	if (!stack || !stack->length)
+		return (-1);
+	index_min = 0;
+	index = 0;
+	while (index < stack->length)
+	{
+		if (node_val(stack, index) < node_val(stack, index_min))
+			index_min = index;
+		index++;
+	}
+	return (index_min);
+}
+
+int	get_max(t_stack *stack)
+{
+	int	index_max;
+	int	index;
+
+	if (!stack || !stack->length)
+		return (-1);
+	index_max = 0;
+	index = 0;
+	while (index < stack->length)
+	{
+		if (node_val(stack, index) > node_val(stack, index_max))
+			index_max = index;
+		index++;
+	}
+	return (index_max);
+}
+
+void	update_stacks(t_stack *stack_a, t_stack *stack_b)
+{
+	stack_a->length = stack_size(stack_a);
+	stack_a->min_index = get_min(stack_a);
+	stack_a->min = node_val(stack_a, stack_a->min_index);
+	stack_a->max_index = get_max(stack_a);
+	stack_a->max = node_val(stack_a, stack_a->max_index);
+	stack_b->length = stack_size(stack_b);
+	stack_b->min_index = get_min(stack_b);
+	stack_b->min = node_val(stack_b, stack_b->min_index);
+	stack_b->max_index = get_max(stack_b);
+	stack_b->max = node_val(stack_b, stack_b->max_index);
+}

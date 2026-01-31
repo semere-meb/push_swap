@@ -70,9 +70,9 @@ int	stack_size(t_stack *stack)
 	int		size;
 	t_node	*node;
 
+	if (!stack || !stack->head)
+		return (0);
 	size = 0;
-	if (!stack)
-		return (size);
 	node = stack->head;
 	while (node && (!size || node != stack->head))
 	{

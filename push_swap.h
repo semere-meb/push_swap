@@ -33,7 +33,9 @@ typedef struct s_stack
 {
 	t_node			*head;
 	int				length;
+	int				min;
 	int				min_index;
+	int				max;
 	int				max_index;
 }					t_stack;
 
@@ -45,6 +47,9 @@ long				ft_atol(const char *nptr);
 int					is_str_digit(char *str);
 int					parse_input(int argc, char **args, t_stack *stack);
 int					is_sorted(t_stack *stack_a);
+int					get_min(t_stack *stack);
+int					get_max(t_stack *stack);
+void				update_stacks(t_stack *stack_a, t_stack *stack_b);
 
 // stack.c
 t_node				*node_new(int val);
@@ -61,27 +66,19 @@ void				stack_reverse(t_stack *stack);
 
 // operations.c
 void				sa(t_stack *stack_a);
-
 void				sb(t_stack *stack_b);
-
 void				ss(t_stack *stack_a, t_stack *stack_b);
-
 void				pa(t_stack *stack_b, t_stack *stack_a);
-
 void				pb(t_stack *stack_a, t_stack *stack_b);
-
 void				ra(t_stack *stack_a);
-
 void				rb(t_stack *stack_b);
-
 void				rr(t_stack *stack_a, t_stack *stack_b);
-
 void				rra(t_stack *stack_a);
-
 void				rrb(t_stack *stack_b);
-
 void				rrr(t_stack *stack_a, t_stack *stack_b);
+
 // debug.c
 void				printval(void *node);
+void				stacks_info(t_stack *stack_a, t_stack *stack_b);
 
 #endif

@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
 #include "push_swap.h"
 
 int	main(int argc, char **argv)
@@ -28,7 +27,7 @@ int	main(int argc, char **argv)
 	stack_b->head = NULL;
 	if (!parse_input(argc, &argv[1], stack_a))
 		return (1);
-	stack_iter(stack_a, &printval);
-	ft_printf("\n");
+	update_stacks(stack_a, stack_b);
+	stacks_info(stack_a, stack_b);
 	return (stack_iter(stack_a, &free), free(stack_a), free(stack_b), 0);
 }
