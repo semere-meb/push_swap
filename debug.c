@@ -15,5 +15,5 @@
 
 void	printval(void *node)
 {
-	ft_printf("%d ", ((t_stack *)node)->content);
+	ft_printf("%d ", ((t_node *)node)->content);
 }

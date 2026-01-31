@@ -49,7 +49,7 @@ int	is_str_digit(char *str)
 	return (1);
 }
 
-int	parse_input(int argc, char **args, t_stack **stack)
+int	parse_input(int argc, char **args, t_stack *stack)
 {
 	char	**res;
 	int		i;
@@ -68,9 +68,9 @@ int	parse_input(int argc, char **args, t_stack **stack)
 			val = ft_atol(res[j]);
 			if (val < INT_MIN || val > INT_MAX)
 				return (ft_printf("Error\n"), 0);
-			if (stack_index(stack, val) != -1)
+			if (node_index(stack, val) != -1)
 				return (ft_printf("Error\n"), 0);
-			stack_push(stack, stack_new(val));
+			stack_push(stack, node_new(val));
 			free(res[j++]);
 		}
 		free(res);
@@ -78,9 +78,9 @@ int	parse_input(int argc, char **args, t_stack **stack)
 	return (1);
 }
 
-int	is_sorted(t_stack **stack_a)
+int	is_sorted(t_stack *stack_a)
 {
-	t_stack	*head;
+	t_node	*head;
 	long	max;
 	int		first;
 
@@ -88,8 +88,8 @@ int	is_sorted(t_stack **stack_a)
 	first = 1;
 	if (!stack_a)
 		return (1);
-	head = *stack_a;
-	while (head && (first || head != *stack_a))
+	head = stack_a->head;
+	while (head && (first || head != stack_a->head))
 	{
 		first = 0;
 		if (head->content < max)

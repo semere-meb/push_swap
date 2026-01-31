@@ -12,11 +12,11 @@
 
 #include "push_swap.h"
 
-t_stack	*stack_new(int val)
+t_node	*node_new(int val)
 {
-	t_stack	*node;
+	t_node	*node;
 
-	node = malloc(sizeof(t_stack));
+	node = malloc(sizeof(t_node));
 	if (!node)
 		return (NULL);
 	node->prev = NULL;
@@ -25,56 +25,56 @@ t_stack	*stack_new(int val)
 	return (node);
 }
 
-void	stack_push(t_stack **stack, t_stack *node)
+void	stack_push(t_stack *stack, t_node *node)
 {
-	t_stack	*temp;
+	t_node	*old_head;
 
 	if (!stack || !node)
 		return ;
-	temp = *stack;
-	if (!*stack)
+	old_head = stack->head;
+	if (!old_head)
 	{
 		node->prev = node;
 		node->next = node;
 	}
 	else
 	{
-		node->next = temp;
-		node->prev = temp->prev;
-		(temp->prev)->next = node;
-		temp->prev = node;
+		node->next = old_head;
+		node->prev = old_head->prev;
+		(old_head->prev)->next = node;
+		old_head->prev = node;
 	}
-	*stack = node;
+	stack->head = node;
 }
 
-t_stack	*stack_pop(t_stack **stack)
+t_node	*stack_pop(t_stack *stack)
 {
-	t_stack	*temp;
+	t_node	*old_head;
 
-	if (!stack || !*stack)
+	if (!stack || !stack->head)
 		return (NULL);
-	temp = *stack;
-	if (temp->prev == temp->next)
-		*stack = NULL;
+	old_head = stack->head;
+	if (old_head->prev == old_head->next)
+		stack->head = NULL;
 	else
 	{
-		(temp->next)->prev = temp->prev;
-		(temp->prev)->next = temp->next;
-		*stack = temp->next;
+		(old_head->next)->prev = old_head->prev;
+		(old_head->prev)->next = old_head->next;
+		stack->head = old_head->next;
 	}
-	return (temp);
+	return (old_head);
 }
 
-int	stack_size(t_stack **stack)
+int	stack_size(t_stack *stack)
 {
 	int		size;
-	t_stack	*node;
+	t_node	*node;
 
 	size = 0;
 	if (!stack)
 		return (size);
-	node = *stack;
-	while (node && (!size || node != *stack))
+	node = stack->head;
+	while (node && (!size || node != stack->head))
 	{
 		size++;
 		node = node->next;
@@ -82,17 +82,17 @@ int	stack_size(t_stack **stack)
 	return (size);
 }
 
-void	stack_iter(t_stack **stack, void (*f)(void *))
+void	stack_iter(t_stack *stack, void (*f)(void *))
 {
-	t_stack	*node;
-	t_stack	*temp;
+	t_node	*node;
+	t_node	*temp;
 	int		first;
 
 	first = 1;
 	if (!stack || !f)
 		return ;
-	node = *stack;
-	while (node && (first || node != *stack))
+	node = stack->head;
+	while (node && (first || node != stack->head))
 	{
 		first = 0;
 		temp = node->next;
@@ -101,17 +101,20 @@ void	stack_iter(t_stack **stack, void (*f)(void *))
 	}
 }
 
-t_stack	*stack_val(t_stack **stack, int index)
+t_node	*node_at(t_stack *stack, int index)
 {
 	int		size;
-	t_stack	*node;
+	t_node	*node;
+	int		first;
 
 	size = 0;
+	first = 1;
 	if (!stack)
 		return (NULL);
-	node = *stack;
-	while (node && (!size || node != *stack))
+	node = stack->head;
+	while (node && (first || node != stack->head))
 	{
+		first = 0;
 		if (size == index)
 			return (node);
 		size++;
@@ -120,9 +123,31 @@ t_stack	*stack_val(t_stack **stack, int index)
 	return (NULL);
 }
 
-int	stack_index(t_stack **stack, int val)
+int	node_val(t_stack *stack, int index)
 {
-	t_stack	*node;
+	int		size;
+	t_node	*node;
+	int		first;
+
+	size = 0;
+	first = 1;
+	if (!stack)
+		return (-1);
+	node = stack->head;
+	while (node && (first || node != stack->head))
+	{
+		first = 0;
+		if (size == index)
+			return (node->content);
+		size++;
+		node = node->next;
+	}
+	return (-1);
+}
+
+int	node_index(t_stack *stack, int val)
+{
+	t_node	*node;
 	int		first;
 	int		index;
 
@@ -130,8 +155,8 @@ int	stack_index(t_stack **stack, int val)
 	first = 1;
 	if (!stack)
 		return (-1);
-	node = *stack;
-	while (node && (first || node != *stack))
+	node = stack->head;
+	while (node && (first || node != stack->head))
 	{
 		first = 0;
 		if (node->content == val)
@@ -142,12 +167,12 @@ int	stack_index(t_stack **stack, int val)
 	return (-1);
 }
 
-void	stack_swap(t_stack **stack)
+void	stack_swap(t_stack *stack)
 {
-	t_stack	*node1;
-	t_stack	*node2;
+	t_node	*node1;
+	t_node	*node2;
 
-	if (*stack || (*stack)->next != *stack)
+	if (!stack || stack->head == stack->head->next)
 		return ;
 	node1 = stack_pop(stack);
 	node2 = stack_pop(stack);
@@ -155,16 +180,16 @@ void	stack_swap(t_stack **stack)
 	stack_push(stack, node2);
 }
 
-void	stack_rotate(t_stack **stack)
+void	stack_rotate(t_stack *stack)
 {
-	if (*stack || (*stack)->next != *stack)
+	if (!stack || stack->head == stack->head->next)
 		return ;
-	*stack = (*stack)->next;
+	stack->head = stack->head->next;
 }
 
-void	stack_reverse(t_stack **stack)
+void	stack_reverse(t_stack *stack)
 {
-	if (*stack || (*stack)->next != *stack)
+	if (!stack || stack->head == stack->head->next)
 		return ;
-	*stack = (*stack)->prev;
+	stack->head = stack->head->prev;
 }
