@@ -24,6 +24,7 @@ typedef struct s_node
 {
 	int				index;
 	int				content;
+	struct s_node	*target;
 	int				cost;
 	struct s_node	*prev;
 	struct s_node	*next;
@@ -65,16 +66,16 @@ void				stack_rotate(t_stack *stack);
 void				stack_reverse(t_stack *stack);
 
 // operations.c
-void				sa(t_stack *stack_a);
-void				sb(t_stack *stack_b);
+void				sa(t_stack *stack_a, t_stack *stack_b);
+void				sb(t_stack *stack_a, t_stack *stack_b);
 void				ss(t_stack *stack_a, t_stack *stack_b);
-void				pa(t_stack *stack_b, t_stack *stack_a);
+void				pa(t_stack *stack_a, t_stack *stack_b);
 void				pb(t_stack *stack_a, t_stack *stack_b);
-void				ra(t_stack *stack_a);
-void				rb(t_stack *stack_b);
+void				ra(t_stack *stack_a, t_stack *stack_b);
+void				rb(t_stack *stack_a, t_stack *stack_b);
 void				rr(t_stack *stack_a, t_stack *stack_b);
-void				rra(t_stack *stack_a);
-void				rrb(t_stack *stack_b);
+void				rra(t_stack *stack_a, t_stack *stack_b);
+void				rrb(t_stack *stack_a, t_stack *stack_b);
 void				rrr(t_stack *stack_a, t_stack *stack_b);
 
 // debug.c
