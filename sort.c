@@ -4,4 +4,6 @@ void	sort(t_stack *stack_a, t_stack *stack_b)
 {
 	pb(stack_a, stack_b);
 	pb(stack_a, stack_b);
+	update_stacks(stack_a, stack_b);
+	stacks_info(stack_a, stack_b);
 }

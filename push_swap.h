@@ -19,13 +19,17 @@
 
 # define INT_MIN -2147483648
 # define INT_MAX 2147483647
+# define UP 1
+# define DOWN 0
 
 typedef struct s_node
 {
 	int				index;
 	int				content;
+	int direction;
 	struct s_node	*target;
 	int				cost;
+	int				cost_to_top;
 	struct s_node	*prev;
 	struct s_node	*next;
 }					t_node;
@@ -38,6 +42,7 @@ typedef struct s_stack
 	int				min_index;
 	int				max;
 	int				max_index;
+	int cheapest_index;
 }					t_stack;
 
 // sort.c

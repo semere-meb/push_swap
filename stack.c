@@ -19,9 +19,10 @@ t_node	*node_new(int val)
 	node = malloc(sizeof(t_node));
 	if (!node)
 		return (NULL);
-	node->prev = NULL;
 	node->content = val;
+	node->prev = NULL;
 	node->next = NULL;
+	node->target = NULL;
 	return (node);
 }
 
