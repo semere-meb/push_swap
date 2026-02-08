@@ -136,7 +136,11 @@ int	get_max(t_stack *stack)
 	return (index_max);
 }
 
-
+int min(int a, int b) {
+	if (a < b)
+		return a;
+	return b;
+}
 
 void	update_cost(t_stack *stack)
 {
@@ -151,8 +155,11 @@ void	update_cost(t_stack *stack)
 	while (node && index < stack->length)
 	{
 		node->cost = node->cost_to_top + 1;
-		if (node->target)
+		if (node->target) {
 			node->cost += node->target->cost_to_top;
+			if (node->direction == node->target->direction)
+				node->cost -= min(node->cost_to_top, node->target->cost_to_top);
+		}
 		if (node->cost < node_at(stack, stack->cheapest_index)->cost)
 			stack->cheapest_index = index;
 		node = node->next;
@@ -227,12 +234,6 @@ void	update_meta(t_stack *stack)
 	stack->min = node_val(stack, stack->min_index);
 	stack->max_index = get_max(stack);
 	stack->max = node_val(stack, stack->max_index);
-}
-
-int min(int a, int b) {
-	if (a > b)
-		return b;
-	return a;
 }
 
 void	update_stacks(t_stack *stack_a, t_stack *stack_b)

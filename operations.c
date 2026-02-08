@@ -33,8 +33,8 @@ void	sb(t_stack *stack_a, t_stack *stack_b)
 
 void	ss(t_stack *stack_a, t_stack *stack_b)
 {
-	sa(stack_a, stack_b);
-	sb(stack_a, stack_b);
+	stack_swap(stack_a);
+	stack_swap(stack_b);
 	update_stacks(stack_a, stack_b);
 	ft_printf("ss\n");
 	// stacks_info(stack_a, stack_b);
@@ -84,8 +84,8 @@ void	rb(t_stack *stack_a, t_stack *stack_b)
 
 void	rr(t_stack *stack_a, t_stack *stack_b)
 {
-	ra(stack_a, stack_b);
-	rb(stack_a, stack_b);
+	stack_rotate(stack_a);
+	stack_rotate(stack_b);
 	update_stacks(stack_a, stack_b);
 	ft_printf("rr\n");
 	// stacks_info(stack_a, stack_b);
@@ -111,8 +111,8 @@ void	rrb(t_stack *stack_a, t_stack *stack_b)
 
 void	rrr(t_stack *stack_a, t_stack *stack_b)
 {
-	rra(stack_a, stack_b);
-	rrb(stack_a, stack_b);
+	stack_reverse(stack_a);
+	stack_reverse(stack_b);
 	update_stacks(stack_a, stack_b);
 	ft_printf("rrr\n");
 	// stacks_info(stack_a, stack_b);

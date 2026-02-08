@@ -30,6 +30,7 @@ typedef struct s_node
 	struct s_node	*target;
 	int				cost;
 	int				cost_to_top;
+	int common_cost;
 	struct s_node	*prev;
 	struct s_node	*next;
 }					t_node;
@@ -56,6 +57,7 @@ int					is_sorted(t_stack *stack_a);
 int					get_min(t_stack *stack);
 int					get_max(t_stack *stack);
 void				update_stacks(t_stack *stack_a, t_stack *stack_b);
+int min(int a, int b);
 
 // stack.c
 t_node				*node_new(int val);
