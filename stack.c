@@ -55,7 +55,7 @@ t_node	*stack_pop(t_stack *stack)
 	if (!stack || !stack->head)
 		return (NULL);
 	old_head = stack->head;
-	if (old_head->prev == old_head->next)
+	if (old_head->next == old_head)
 		stack->head = NULL;
 	else
 	{
