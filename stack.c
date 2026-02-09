@@ -66,6 +66,33 @@ t_node	*stack_pop(t_stack *stack)
 	return (old_head);
 }
 
+void	stack_swap(t_stack *stack)
+{
+	t_node	*node1;
+	t_node	*node2;
+
+	if (!stack || stack_size(stack) < 2)
+		return ;
+	node1 = stack_pop(stack);
+	node2 = stack_pop(stack);
+	stack_push(stack, node1);
+	stack_push(stack, node2);
+}
+
+void	stack_rotate(t_stack *stack)
+{
+	if (!stack || stack_size(stack) < 2)
+		return ;
+	stack->head = stack->head->next;
+}
+
+void	stack_reverse(t_stack *stack)
+{
+	if (!stack || stack_size(stack) < 2)
+		return ;
+	stack->head = stack->head->prev;
+}
+
 int	stack_size(t_stack *stack)
 {
 	int		size;
@@ -166,31 +193,4 @@ int	node_index(t_stack *stack, int val)
 		index++;
 	}
 	return (-1);
-}
-
-void	stack_swap(t_stack *stack)
-{
-	t_node	*node1;
-	t_node	*node2;
-
-	if (!stack || stack->head == stack->head->next)
-		return ;
-	node1 = stack_pop(stack);
-	node2 = stack_pop(stack);
-	stack_push(stack, node1);
-	stack_push(stack, node2);
-}
-
-void	stack_rotate(t_stack *stack)
-{
-	if (!stack || stack->head == stack->head->next)
-		return ;
-	stack->head = stack->head->next;
-}
-
-void	stack_reverse(t_stack *stack)
-{
-	if (!stack || stack->head == stack->head->next)
-		return ;
-	stack->head = stack->head->prev;
 }

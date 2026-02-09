@@ -56,10 +56,11 @@ int	parse_input(int argc, char **args, t_stack *stack)
 	int		j;
 	long	val;
 
-	i = 0;
-	while (i < argc - 1)
+	i = argc - 2;
+	while (i >= 0)
 	{
-		res = ft_split(args[i++], ' ');
+		res = ft_split(args[i--], ' ');
+		// TODO: fix order for splitted strings
 		j = 0;
 		while (res[j])
 		{
@@ -136,10 +137,11 @@ int	get_max(t_stack *stack)
 	return (index_max);
 }
 
-int min(int a, int b) {
+int	min(int a, int b)
+{
 	if (a < b)
-		return a;
-	return b;
+		return (a);
+	return (b);
 }
 
 void	update_cost(t_stack *stack)
@@ -155,7 +157,8 @@ void	update_cost(t_stack *stack)
 	while (node && index < stack->length)
 	{
 		node->cost = node->cost_to_top + 1;
-		if (node->target) {
+		if (node->target)
+		{
 			node->cost += node->target->cost_to_top;
 			if (node->direction == node->target->direction)
 				node->cost -= min(node->cost_to_top, node->target->cost_to_top);
@@ -214,11 +217,13 @@ void	update_index(t_stack *stack)
 	while (node && index < stack->length)
 	{
 		node->index = index;
-		if (index <= stack->length / 2) {
+		if (index <= stack->length / 2)
+		{
 			node->cost_to_top = index;
 			node->direction = UP;
 		}
-		else {
+		else
+		{
 			node->cost_to_top = stack->length - index;
 			node->direction = DOWN;
 		}

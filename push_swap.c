@@ -16,6 +16,7 @@ int	main(int argc, char **argv)
 {
 	t_stack	*stack_a;
 	t_stack	*stack_b;
+	int		res;
 
 	if (argc == 1)
 		return (1);
@@ -30,6 +31,7 @@ int	main(int argc, char **argv)
 	update_stacks(stack_a, stack_b);
 	if (!is_sorted(stack_a))
 		sort(stack_a, stack_b);
-	int res = is_sorted(stack_a);
+	// stack_iter(stack_a, &printval);
+	res = is_sorted(stack_a);
 	return (stack_iter(stack_a, &free), free(stack_a), free(stack_b), res);
 }
