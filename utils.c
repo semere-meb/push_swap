@@ -49,33 +49,35 @@ int	is_str_digit(char *str)
 	return (1);
 }
 
-int	parse_input(int argc, char **args, t_stack *stack)
+int	parse_input(int count, char **args, t_stack *stack)
 {
-	char	**res;
 	int		i;
-	int		j;
 	long	val;
+	bool dynamic = 0;
 
-	i = argc - 2;
+	if (count == 1) {
+		dynamic = 1;
+		args = ft_split(args[0], ' ');
+		count = 0;
+		while (args[count])
+			count++;
+	}
+	i = count - 1;
 	while (i >= 0)
 	{
-		res = ft_split(args[i--], ' ');
-		// TODO: fix order for splitted strings
-		j = 0;
-		while (res[j])
-		{
-			if (!is_str_digit(res[j]))
-				return (ft_printf("Error\n"), 0);
-			val = ft_atol(res[j]);
-			if (val < INT_MIN || val > INT_MAX)
-				return (ft_printf("Error\n"), 0);
-			if (node_index(stack, val) != -1)
-				return (ft_printf("Error\n"), 0);
-			stack_push(stack, node_new(val));
-			free(res[j++]);
-		}
-		free(res);
+		if (!is_str_digit(args[i]))
+			return (ft_printf("Error\n"), 0);
+		val = ft_atol(args[i]);
+		if (val < INT_MIN || val > INT_MAX)
+			return (ft_printf("Error\n"), 0);
+		if (node_index(stack, val) != -1)
+			return (ft_printf("Error\n"), 0);
+		stack_push(stack, node_new(val));
+		if (dynamic)
+			free(args[i--]);
 	}
+	if (dynamic)
+		free(args);
 	return (1);
 }
 
@@ -248,7 +250,5 @@ void	update_stacks(t_stack *stack_a, t_stack *stack_b)
 	update_index(stack_a);
 	update_index(stack_b);
 	set_targets(stack_a, stack_b);
-	set_targets(stack_b, stack_a);
 	update_cost(stack_a);
-	update_cost(stack_b);
 }

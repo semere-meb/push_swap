@@ -24,10 +24,10 @@ void	printval(void *node)
 	ft_printf("%d, ", nd->cost_to_top);
 	ft_printf("%d, ", nd->cost);
 	ft_printf("%s, ", nd->direction == UP ? "UP" : "DOWN");
-	if (!nd->target)
-		ft_printf("NULL");
-	else
-		ft_printf("%d, ", nd->target->content);
+	// if (!nd->target)
+	// 	ft_printf("NULL");
+	// else
+	// 	ft_printf("%d, ", nd->target->content);
 	ft_printf("]\n");
 }
 

@@ -51,4 +51,5 @@ void	sort(t_stack *stack_a, t_stack *stack_b)
 	}
 	while (stack_b->length > 0)
 		pa(stack_a, stack_b);
+	// stacks_info(stack_a, stack_b);
 }

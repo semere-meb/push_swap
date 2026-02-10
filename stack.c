@@ -20,6 +20,10 @@ t_node	*node_new(int val)
 	if (!node)
 		return (NULL);
 	node->content = val;
+	node->index = -1;
+	node->cost_to_top = 0;
+	node->cost = 0;
+	node->direction = UP;
 	node->prev = NULL;
 	node->next = NULL;
 	node->target = NULL;
