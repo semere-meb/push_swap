@@ -14,7 +14,6 @@
 # define PUSH_SWAP_H
 
 # include <stdbool.h>
-# include <stdlib.h>
 # include <unistd.h>
 
 # define INT_MIN -2147483648
@@ -24,15 +23,18 @@
 
 typedef struct s_node
 {
-	int				index;
-	int				content;
-	int				direction;
-	struct s_node	*target;
-	int				cost;
-	int				cost_to_top;
-	int				common_cost;
 	struct s_node	*prev;
 	struct s_node	*next;
+	int				index;
+	int				content;
+
+	struct s_node	*target;
+	int 			common_dir;
+	int				common_cost;
+	int 			target_dir;
+	int				target_cost;
+	int				dir;
+	int				cost;
 }					t_node;
 
 typedef struct s_stack

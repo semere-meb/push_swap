@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <stdlib.h>
 
 t_node	*node_new(int val)
 {
@@ -20,13 +21,15 @@ t_node	*node_new(int val)
 	if (!node)
 		return (NULL);
 	node->content = val;
-	node->index = -1;
-	node->cost_to_top = 0;
-	node->cost = 0;
-	node->direction = UP;
 	node->prev = NULL;
 	node->next = NULL;
 	node->target = NULL;
+	node->index = -1;
+	node->cost = -1;
+	node->target_cost = -1;
+	node->common_dir = -1;
+	node->common_cost = -1;
+	node->target_cost = -1;
 	return (node);
 }
 

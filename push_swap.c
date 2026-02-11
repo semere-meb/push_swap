@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include "libft/libft.h"
+#include <stdio.h>
 
 int	main(int argc, char **argv)
 {
@@ -31,6 +33,10 @@ int	main(int argc, char **argv)
 	update_stacks(stack_a, stack_b);
 	if (!is_sorted(stack_a))
 		sort(stack_a, stack_b);
+	ft_printf("stack_a\n");
+	stack_iter(stack_a, &printval);
+	ft_printf("stack_b\n");
+	stack_iter(stack_b, &printval);
 	res = is_sorted(stack_a);
 	return (stack_iter(stack_a, &free), free(stack_a), free(stack_b), res);
 }
