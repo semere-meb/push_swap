@@ -26,12 +26,11 @@ int	main(int argc, char **argv)
 		return (1);
 	stack_a->head = NULL;
 	stack_b->head = NULL;
-	if (!parse_input(argc-1, &argv[1], stack_a))
+	if (!parse_input(argc - 1, &argv[1], stack_a))
 		return (1);
 	update_stacks(stack_a, stack_b);
 	if (!is_sorted(stack_a))
 		sort(stack_a, stack_b);
-	// stack_iter(stack_a, &printval);
 	res = is_sorted(stack_a);
 	return (stack_iter(stack_a, &free), free(stack_a), free(stack_b), res);
 }

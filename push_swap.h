@@ -54,10 +54,10 @@ long				ft_atol(const char *nptr);
 int					is_str_digit(char *str);
 int					parse_input(int argc, char **args, t_stack *stack);
 int					is_sorted(t_stack *stack_a);
-int					get_min(t_stack *stack);
-int					get_max(t_stack *stack);
-void				update_stacks(t_stack *stack_a, t_stack *stack_b);
 int					min(int a, int b);
+
+// update_meta.c
+void				update_stacks(t_stack *stack_a, t_stack *stack_b);
 
 // stack.c
 t_node				*node_new(int val);
