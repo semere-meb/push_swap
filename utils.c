@@ -97,9 +97,9 @@ int	is_sorted(t_stack *stack_a)
 	while (head && (first || head != stack_a->head))
 	{
 		first = 0;
-		if (head->content < max)
+		if (head->val < max)
 			return (0);
-		max = head->content;
+		max = head->val;
 		head = head->next;
 	}
 	return (1);

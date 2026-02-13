@@ -20,7 +20,7 @@ t_node	*node_new(int val)
 	node = malloc(sizeof(t_node));
 	if (!node)
 		return (NULL);
-	node->content = val;
+	node->val = val;
 	node->index = -1;
 	node->prev = NULL;
 	node->next = NULL;
@@ -171,7 +171,7 @@ int	node_val(t_stack *stack, int index)
 	{
 		first = 0;
 		if (size == index)
-			return (node->content);
+			return (node->val);
 		size++;
 		node = node->next;
 	}
@@ -192,7 +192,7 @@ int	node_index(t_stack *stack, int val)
 	while (node && (first || node != stack->head))
 	{
 		first = 0;
-		if (node->content == val)
+		if (node->val == val)
 			return (index);
 		node = node->next;
 		index++;

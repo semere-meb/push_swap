@@ -26,7 +26,7 @@ typedef struct s_node
 	struct s_node	*prev;
 	struct s_node	*next;
 	struct s_node	*target;
-	int				content;
+	int				val;
 	int				index;
 	int				c_cost;
 	int				n_cost;
@@ -37,11 +37,7 @@ typedef struct s_stack
 {
 	t_node			*head;
 	int				length;
-	int				min;
-	int				min_index;
-	int				max;
-	int				max_index;
-	int				cheapest_index;
+	t_node			*cheapest;
 }					t_stack;
 
 // sort.c
