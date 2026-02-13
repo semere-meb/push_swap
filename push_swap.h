@@ -25,16 +25,12 @@ typedef struct s_node
 {
 	struct s_node	*prev;
 	struct s_node	*next;
-	int				index;
-	int				content;
-
 	struct s_node	*target;
-	int 			common_dir;
-	int				common_cost;
-	int 			target_dir;
-	int				target_cost;
-	int				dir;
-	int				cost;
+	int				content;
+	int				index;
+	int				c_cost;
+	int				n_cost;
+	int				t_cost;
 }					t_node;
 
 typedef struct s_stack

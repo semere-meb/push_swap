@@ -1,8 +1,41 @@
 #include "push_swap.h"
 
-static void	set_targets(t_stack *stack1, t_stack *stack2)
+int abs(int a) {
+	if (a < 0)
+		return -a;
+	return a;
+}
+
+static void calc_cost(t_stack *sa, t_node *n, t_stack *sb, t_node *t) {
+	if (!sa || !sb || !n || !t)
+		return;
+	int common;
+
+	common = min(n->index, t->index);
+	n->c_cost = common;
+	n->n_cost = n->index - common;
+	n->t_cost = t->index - common;
+	common = min(sa->length-n->index, sb->length-t->index);
+	if (sa->length-n->index + sb->length-t->index - common < n->c_cost + n->n_cost + n->t_cost) {
+		n->c_cost = -common;
+		n->n_cost = -(sa->length - n->index - common);
+		t->t_cost = -(sb->length - t->index - common);
+	}
+	if (n->index + sb->length - t->index < abs(n->c_cost) + abs(n->n_cost) + abs(n->t_cost)) {
+		n->c_cost = 0;
+		n->n_cost = n->index;
+		n->t_cost = -(sb->length - t->index);
+	}
+	if (sa->length - n->index + t->index < abs(n->c_cost) + abs(n->n_cost) + abs(n->t_cost)) {
+		n->c_cost = 0;
+		n->n_cost = -(sa->length - n->index);
+		n->t_cost = t->index;
+	}
+}
+
+static void	set_targets(t_stack *stack_a, t_stack *stack_b)
 {
-	if (!stack1 || !stack2 || !stack1->head)
+	if (!stack_a || !stack_b || !stack_a->head)
 		return;
 	t_node *node;
 	t_node *target;
@@ -10,19 +43,19 @@ static void	set_targets(t_stack *stack1, t_stack *stack2)
 	int j;
 
 	i = 0;
-	node = stack1->head;
-	while (i < stack1->length) {
+	node = stack_a->head;
+	while (i < stack_a->length) {
 		j = 0;
-		target = stack2->head;
+		target = stack_b->head;
 		node->target = target;
-		while (j < stack2->length) {
-			if (target->content < node->content) {
-				node->target = target;
+		while (j < stack_b->length) {
+			if (node->content > target->content)
 				break;
-			}
 			target = target->next;
 			j++;
 		}
+		node->target = target;
+		calc_cost(stack_a, node, stack_b, target);
 		node = node->next;
 		i++;
 	}

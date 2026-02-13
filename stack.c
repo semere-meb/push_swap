@@ -21,15 +21,13 @@ t_node	*node_new(int val)
 	if (!node)
 		return (NULL);
 	node->content = val;
+	node->index = -1;
 	node->prev = NULL;
 	node->next = NULL;
 	node->target = NULL;
-	node->index = -1;
-	node->cost = -1;
-	node->target_cost = -1;
-	node->common_dir = -1;
-	node->common_cost = -1;
-	node->target_cost = -1;
+	node->c_cost = -1;
+	node->n_cost = -1;
+	node->t_cost = -1;
 	return (node);
 }
 
