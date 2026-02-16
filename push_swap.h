@@ -58,29 +58,23 @@ void				update_index(t_stack *stack);
 
 // stack.c
 t_node				*node_new(int val);
-t_node				*node_at(t_stack *stack, int index);
 void				stack_push(t_stack *stack, t_node *node);
 t_node				*stack_pop(t_stack *stack);
+void				stack_swap(t_stack *stack);
+void				stack_rotate(t_stack *stack);
+
+// stack2.c
+void				stack_reverse(t_stack *stack);
 int					stack_size(t_stack *stack);
 void				stack_iter(t_stack *stack, void (*f)(void *));
 int					node_val(t_stack *stack, int index);
 int					node_index(t_stack *stack, int val);
-void				stack_swap(t_stack *stack);
-void				stack_rotate(t_stack *stack);
-void				stack_reverse(t_stack *stack);
 
 // operations.c
-void				sa(t_stack *stack_a);
-void				sb(t_stack *stack_b);
-void				ss(t_stack *stack_a, t_stack *stack_b);
-void				pa(t_stack *stack_a, t_stack *stack_b);
-void				pb(t_stack *stack_a, t_stack *stack_b);
-void				ra(t_stack *stack_a);
-void				rb(t_stack *stack_b);
-void				rr(t_stack *stack_a, t_stack *stack_b);
-void				rra(t_stack *stack_a);
-void				rrb(t_stack *stack_b);
-void				rrr(t_stack *stack_a, t_stack *stack_b);
+int					swap(t_stack *sa, t_stack *sb, char s);
+int					push(t_stack *sa, t_stack *sb, char s);
+int					rotate(t_stack *sa, t_stack *sb, char s);
+int					reverse(t_stack *sa, t_stack *sb, char s);
 
 // debug.c
 void				printval(void *node);

@@ -17,43 +17,25 @@ void	move(t_stack *sa, t_stack *sb, t_node *n)
 	while (n->c_cost)
 	{
 		if (n->c_cost > 0)
-		{
-			rr(sa, sb);
-			n->c_cost -= 1;
-		}
+			n->c_cost -= rotate(sa, sb, 's');
 		else if (n->c_cost < 0)
-		{
-			rrr(sa, sb);
-			n->c_cost += 1;
-		}
+			n->c_cost += reverse(sa, sb, 's');
 	}
 	while (n->n_cost)
 	{
 		if (n->n_cost > 0)
-		{
-			ra(sa);
-			n->n_cost -= 1;
-		}
+			n->n_cost -= rotate(sa, sb, 'a');
 		else if (n->n_cost < 0)
-		{
-			rra(sa);
-			n->n_cost += 1;
-		}
+			n->n_cost += reverse(sa, sb, 'a');
 	}
 	while (n->t_cost)
 	{
 		if (n->t_cost > 0)
-		{
-			rb(sb);
-			n->t_cost -= 1;
-		}
+			n->t_cost -= rotate(sa, sb, 'b');
 		else if (n->t_cost < 0)
-		{
-			rrb(sb);
-			n->t_cost += 1;
-		}
+			n->t_cost += reverse(sa, sb, 'b');
 	}
-	pb(sa, sb);
+	push(sa, sb, 'b');
 	update_index(sa);
 	update_index(sb);
 	set_targets(sa, sb);
@@ -64,8 +46,8 @@ void	sort(t_stack *sa, t_stack *sb)
 	t_node	*node;
 	int		i;
 
-	pb(sa, sb);
-	pb(sa, sb);
+	push(sa, sb, 'b');
+	push(sa, sb, 'b');
 	update_index(sa);
 	update_index(sb);
 	set_targets(sa, sb);
@@ -77,10 +59,10 @@ void	sort(t_stack *sa, t_stack *sb)
 	i = sb->max->index;
 	if (i <= sb->length / 2.0)
 		while (i-- > 0)
-			rb(sb);
+			rotate(sa, sb, 'b');
 	else
 		while (sb->length - i++)
-			rrb(sb);
+			reverse(sa, sb, 'b');
 	while (sb->head)
-		pa(sa, sb);
+		push(sa, sb, 'a');
 }

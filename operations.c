@@ -13,71 +13,80 @@
 #include "libft/libft.h"
 #include "push_swap.h"
 
-void	sa(t_stack *stack_a)
+int	swap(t_stack *sa, t_stack *sb, char s)
 {
-	stack_swap(stack_a);
-	ft_printf("sa\n");
+	if (s == 'a')
+	{
+		stack_swap(sa);
+		ft_printf("sa\n");
+	}
+	else if (s == 'b')
+	{
+		stack_swap(sb);
+		ft_printf("sb\n");
+	}
+	else if (s == 's')
+	{
+		stack_swap(sa);
+		stack_swap(sb);
+		ft_printf("ss\n");
+	}
+	return (1);
 }
 
-void	sb(t_stack *stack_b)
+int	push(t_stack *sa, t_stack *sb, char s)
 {
-	stack_swap(stack_b);
-	ft_printf("sb\n");
+	if (s == 'a')
+	{
+		stack_push(sa, stack_pop(sb));
+		ft_printf("pa\n");
+	}
+	else if (s == 'b')
+	{
+		stack_push(sb, stack_pop(sa));
+		ft_printf("pb\n");
+	}
+	return (1);
 }
 
-void	ss(t_stack *stack_a, t_stack *stack_b)
+int	rotate(t_stack *sa, t_stack *sb, char s)
 {
-	stack_swap(stack_a);
-	stack_swap(stack_b);
-	ft_printf("ss\n");
+	if (s == 'a')
+	{
+		stack_rotate(sa);
+		ft_printf("ra\n");
+	}
+	else if (s == 'b')
+	{
+		stack_rotate(sb);
+		ft_printf("rb\n");
+	}
+	else if (s == 's')
+	{
+		stack_rotate(sa);
+		stack_rotate(sb);
+		ft_printf("rr\n");
+	}
+	return (1);
 }
 
-void	pa(t_stack *stack_a, t_stack *stack_b)
+int	reverse(t_stack *sa, t_stack *sb, char s)
 {
-	stack_push(stack_a, stack_pop(stack_b));
-	ft_printf("pa\n");
-}
-
-void	pb(t_stack *stack_a, t_stack *stack_b)
-{
-	stack_push(stack_b, stack_pop(stack_a));
-	ft_printf("pb\n");
-}
-
-void	ra(t_stack *stack_a)
-{
-	stack_rotate(stack_a);
-	ft_printf("ra\n");
-}
-
-void	rb(t_stack *stack_b)
-{
-	stack_rotate(stack_b);
-	ft_printf("rb\n");
-}
-
-void	rr(t_stack *stack_a, t_stack *stack_b)
-{
-	stack_rotate(stack_a);
-	stack_rotate(stack_b);
-	ft_printf("rr\n");
-}
-
-void	rra(t_stack *stack_a)
-{
-	stack_reverse(stack_a);
-	ft_printf("rra\n");
-}
-
-void	rrb(t_stack *stack_b)
-{
-	stack_reverse(stack_b);
-	ft_printf("rrb\n");
-}
-
-void	rrr(t_stack *stack_a, t_stack *stack_b)
-{
-	stack_reverse(stack_a);
-	stack_reverse(stack_b);
-	ft_printf("rrr\n");
+	if (s == 'a')
+	{
+		stack_reverse(sa);
+		ft_printf("rra\n");
+	}
+	else if (s == 'b')
+	{
+		stack_reverse(sb);
+		ft_printf("rrb\n");
+	}
+	else if (s == 's')
+	{
+		stack_reverse(sa);
+		stack_reverse(sb);
+		ft_printf("rrr\n");
+	}
+	return (1);
 }
