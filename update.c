@@ -12,13 +12,6 @@
 
 #include "push_swap.h"
 
-int	abs(int a)
-{
-	if (a < 0)
-		return (-a);
-	return (a);
-}
-
 static void	set_cheapest(t_stack *stack)
 {
 	int		i;
@@ -41,6 +34,13 @@ static void	set_cheapest(t_stack *stack)
 	}
 }
 
+static void	set_cost(t_node *n, int c_cost, int n_cost, int t_cost)
+{
+	n->c_cost = c_cost;
+	n->n_cost = n_cost;
+	n->t_cost = t_cost;
+}
+
 static void	calc_cost(t_stack *sa, t_node *n, t_stack *sb, t_node *t)
 {
 	int	common;
@@ -48,31 +48,18 @@ static void	calc_cost(t_stack *sa, t_node *n, t_stack *sb, t_node *t)
 	if (!sa || !sb || !n || !t)
 		return ;
 	common = min(n->index, t->index);
-	n->c_cost = common;
-	n->n_cost = n->index - common;
-	n->t_cost = t->index - common;
+	set_cost(n, common, n->index - common, t->index - common);
 	common = min(sa->length - n->index, sb->length - t->index);
 	if (sa->length - n->index + sb->length - t->index - common < n->c_cost
 		+ n->n_cost + n->t_cost)
-	{
-		n->c_cost = -common;
-		n->n_cost = -(sa->length - n->index - common);
-		n->t_cost = -(sb->length - t->index - common);
-	}
+		set_cost(n, -common, -(sa->length - n->index - common), -(sb->length
+				- t->index - common));
 	if (n->index + sb->length - t->index < abs(n->c_cost) + abs(n->n_cost)
 		+ abs(n->t_cost))
-	{
-		n->c_cost = 0;
-		n->n_cost = n->index;
-		n->t_cost = -(sb->length - t->index);
-	}
+		set_cost(n, 0, n->index, -(sb->length - t->index));
 	if (sa->length - n->index + t->index < abs(n->c_cost) + abs(n->n_cost)
 		+ abs(n->t_cost))
-	{
-		n->c_cost = 0;
-		n->n_cost = -(sa->length - n->index);
-		n->t_cost = t->index;
-	}
+		set_cost(n, 0, -(sa->length - n->index), t->index);
 	set_cheapest(sa);
 }
 

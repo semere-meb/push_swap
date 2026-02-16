@@ -52,6 +52,9 @@ int					parse_input(int argc, char **args, t_stack *stack);
 int					is_sorted(t_stack *stack_a);
 int					min(int a, int b);
 
+// utils.c
+int					abs(int a);
+
 // update.c
 void				set_targets(t_stack *stack_a, t_stack *stack_b);
 void				update_index(t_stack *stack);
@@ -75,9 +78,5 @@ int					swap(t_stack *sa, t_stack *sb, char s);
 int					push(t_stack *sa, t_stack *sb, char s);
 int					rotate(t_stack *sa, t_stack *sb, char s);
 int					reverse(t_stack *sa, t_stack *sb, char s);
-
-// debug.c
-void				printval(void *node);
-void				stacks_info(t_stack *stack_a, t_stack *stack_b);
 
 #endif
