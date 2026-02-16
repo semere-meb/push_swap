@@ -51,35 +51,30 @@ int	is_str_digit(char *str)
 
 int	parse_input(int count, char **args, t_stack *stack)
 {
-	int		i;
 	long	val;
-	bool	dynamic;
+	char	**res;
+	int		i;
 
-	dynamic = 0;
-	if (count == 1)
+	while (--count >= 0)
 	{
-		dynamic = 1;
-		args = ft_split(args[0], ' ');
-		count = 0;
-		while (args[count])
-			count++;
+		res = ft_split(args[count], ' ');
+		i = 0;
+		while (res[i])
+			i++;
+		while (--i >= 0)
+		{
+			if (!is_str_digit(res[i]))
+				return (ft_printf("Error\n"), 0);
+			val = ft_atol(res[i]);
+			if (val < INT_MIN || val > INT_MAX)
+				return (ft_printf("Error\n"), 0);
+			if (node_index(stack, val) != -1)
+				return (ft_printf("Error\n"), 0);
+			stack_push(stack, node_new(val));
+			free(res[i]);
+		}
+		free(res);
 	}
-	i = count - 1;
-	while (i >= 0)
-	{
-		if (!is_str_digit(args[i]))
-			return (ft_printf("Error\n"), 0);
-		val = ft_atol(args[i]);
-		if (val < INT_MIN || val > INT_MAX)
-			return (ft_printf("Error\n"), 0);
-		if (node_index(stack, val) != -1)
-			return (ft_printf("Error\n"), 0);
-		stack_push(stack, node_new(val));
-		if (dynamic)
-			free(args[i--]);
-	}
-	if (dynamic)
-		free(args);
 	return (1);
 }
 
