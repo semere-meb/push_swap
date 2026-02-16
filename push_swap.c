@@ -29,7 +29,6 @@ int	main(int argc, char **argv)
 	stack_b->head = NULL;
 	if (!parse_input(argc - 1, &argv[1], stack_a))
 		return (1);
-	update_stacks(stack_a, stack_b);
 	if (!is_sorted(stack_a))
 		sort(stack_a, stack_b);
 	res = is_sorted(stack_a);

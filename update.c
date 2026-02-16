@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   update.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: semebrah <semebrah@student.42berlin.de>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/16 02:34:59 by semebrah          #+#    #+#             */
+/*   Updated: 2026/02/16 02:35:06 by semebrah         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft/libft.h"
 #include "push_swap.h"
 
@@ -46,7 +58,7 @@ static void	calc_cost(t_stack *sa, t_node *n, t_stack *sb, t_node *t)
 	{
 		n->c_cost = -common;
 		n->n_cost = -(sa->length - n->index - common);
-		t->t_cost = -(sb->length - t->index - common);
+		n->t_cost = -(sb->length - t->index - common);
 	}
 	if (n->index + sb->length - t->index < abs(n->c_cost) + abs(n->n_cost)
 		+ abs(n->t_cost))
@@ -62,39 +74,37 @@ static void	calc_cost(t_stack *sa, t_node *n, t_stack *sb, t_node *t)
 		n->n_cost = -(sa->length - n->index);
 		n->t_cost = t->index;
 	}
+	set_cheapest(sa);
 }
 
-static void	set_targets(t_stack *stack_a, t_stack *stack_b)
+void	set_targets(t_stack *sa, t_stack *sb)
 {
-	t_node	*node;
-	t_node	*target;
+	t_node	*n;
+	t_node	*t;
 	int		i;
 	int		j;
 
-	if (!stack_a || !stack_b || !stack_a->head)
+	if (!sa || !sb || !sa->head)
 		return ;
 	i = 0;
-	node = stack_a->head;
-	while (i < stack_a->length)
+	n = sa->head;
+	while (i < sa->length)
 	{
+		t = sb->head;
+		while (t->val != sb->max->val)
+			t = t->next;
 		j = 0;
-		target = stack_b->head;
-		node->target = target;
-		while (j < stack_b->length)
-		{
-			if (node->val > target->val)
-				break ;
-			target = target->next;
-			j++;
-		}
-		node->target = target;
-		calc_cost(stack_a, node, stack_b, target);
-		node = node->next;
+		if (n->val > sb->min->val && n->val < sb->max->val)
+			while (j++ < sb->length && n->val < t->val)
+				t = t->next;
+		n->target = t;
+		calc_cost(sa, n, sb, t);
+		n = n->next;
 		i++;
 	}
 }
 
-static void	update_index(t_stack *stack)
+void	update_index(t_stack *stack)
 {
 	int		index;
 	t_node	*node;
@@ -108,18 +118,16 @@ static void	update_index(t_stack *stack)
 	}
 	index = 0;
 	node = stack->head;
+	stack->min = node;
+	stack->max = node;
 	while (node && (!index || node != stack->head))
 	{
 		node->index = index++;
+		if (node->val > stack->max->val)
+			stack->max = node;
+		if (node->val < stack->min->val)
+			stack->min = node;
 		node = node->next;
 	}
 	stack->length = index;
-}
-
-void	update_stacks(t_stack *stack_a, t_stack *stack_b)
-{
-	update_index(stack_a);
-	update_index(stack_b);
-	set_targets(stack_a, stack_b);
-	set_cheapest(stack_a);
 }
