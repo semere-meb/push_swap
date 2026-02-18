@@ -13,13 +13,9 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
+# include <limits.h>
 # include <stdbool.h>
 # include <unistd.h>
-
-# define INT_MIN -2147483648
-# define INT_MAX 2147483647
-# define UP 1
-# define DOWN 0
 
 typedef struct s_node
 {
@@ -47,12 +43,9 @@ void				sort(t_stack *stack_a, t_stack *stack_b);
 
 // utils.c
 long				ft_atol(const char *nptr);
-int					is_str_digit(char *str);
 int					parse_input(int argc, char **args, t_stack *stack);
 int					is_sorted(t_stack *stack_a);
 int					min(int a, int b);
-
-// utils.c
 int					abs(int a);
 
 // update.c

@@ -38,17 +38,6 @@ long	ft_atol(const char *nptr)
 	return (res * sign);
 }
 
-int	is_str_digit(char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i])
-		if (!isdigit(str[i++]))
-			return (0);
-	return (1);
-}
-
 int	parse_input(int count, char **args, t_stack *stack)
 {
 	long	val;
@@ -63,8 +52,6 @@ int	parse_input(int count, char **args, t_stack *stack)
 			i++;
 		while (--i >= 0)
 		{
-			if (!is_str_digit(res[i]))
-				return (ft_printf("Error\n"), 0);
 			val = ft_atol(res[i]);
 			if (val < INT_MIN || val > INT_MAX)
 				return (ft_printf("Error\n"), 0);
@@ -105,4 +92,11 @@ int	min(int a, int b)
 	if (a < b)
 		return (a);
 	return (b);
+}
+
+int	abs(int a)
+{
+	if (a < 0)
+		return (-a);
+	return (a);
 }
