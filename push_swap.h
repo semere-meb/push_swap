@@ -48,6 +48,9 @@ int					is_sorted(t_stack *stack_a);
 int					min(int a, int b);
 int					abs(int a);
 
+// utils2.c
+int					is_str_digit(char *str);
+
 // update.c
 void				set_targets(t_stack *stack_a, t_stack *stack_b);
 void				update_index(t_stack *stack);

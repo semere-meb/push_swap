@@ -52,6 +52,8 @@ int	parse_input(int count, char **args, t_stack *stack)
 			i++;
 		while (--i >= 0)
 		{
+			if (!is_str_digit(res[i]))
+				return (ft_printf("Error\n", 0));
 			val = ft_atol(res[i]);
 			if (val < INT_MIN || val > INT_MAX)
 				return (ft_printf("Error\n"), 0);
