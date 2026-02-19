@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	move(t_stack *sa, t_stack *sb, t_node *n)
+static void	move(t_stack *sa, t_stack *sb, t_node *n)
 {
 	while (n->c_cost)
 	{
@@ -38,24 +38,63 @@ void	move(t_stack *sa, t_stack *sb, t_node *n)
 	push(sa, sb, 'b');
 }
 
+static void	sort_three(t_stack *s)
+{
+	if (s->head == s->min && s->head->next == s->max)
+		swap(s, NULL, 'a');
+	if (s->head == s->max)
+		rotate(s, NULL, 'a');
+	if (!is_sorted(s) && s->head->prev == s->max)
+		swap(s, NULL, 'a');
+	else if (!is_sorted(s) && s->head->prev == s->min)
+		reverse(s, NULL, 'a');
+}
+
+static t_node	*get_asc_target(t_node *n, t_stack *s)
+{
+	t_node	*target;
+
+	if (!n || !s || !s->head)
+		return (NULL);
+	if (n->val > s->max->val || n->val < s->min->val)
+		return (s->min);
+	target = s->head;
+	while (target != s->min)
+		target = target->next;
+	while (n->val > target->val)
+		target = target->next;
+	return (target);
+}
+
+static void	move_top(t_stack *s, t_node *n)
+{
+	if (n->index <= s->length / 2.0)
+		while (n->index)
+			rotate(s, NULL, 'a');
+	else
+		while (n->index)
+			reverse(s, NULL, 'a');
+}
+
 void	sort(t_stack *sa, t_stack *sb)
 {
 	int	i;
 
-	push(sa, sb, 'b');
-	push(sa, sb, 'b');
-	while (sa->length)
+	update_index(sa);
+	update_index(sb);
+	i = 2;
+	while (i-- && sa->length > 3)
+		push(sa, sb, 'b');
+	while (sa->length > 3)
 	{
 		set_targets(sa, sb);
 		move(sa, sb, sa->cheapest);
 	}
-	i = sb->max->index;
-	if (i <= sb->length / 2.0)
-		while (i-- > 0)
-			rotate(sa, sb, 'b');
-	else
-		while (sb->length - i++)
-			reverse(sa, sb, 'b');
+	sort_three(sa);
 	while (sb->head)
+	{
+		move_top(sa, get_asc_target(sb->head, sa));
 		push(sa, sb, 'a');
+	}
+	move_top(sa, sa->min);
 }
