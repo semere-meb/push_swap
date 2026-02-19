@@ -36,25 +36,18 @@ void	move(t_stack *sa, t_stack *sb, t_node *n)
 			n->t_cost += reverse(sa, sb, 'b');
 	}
 	push(sa, sb, 'b');
-	update_index(sa);
-	update_index(sb);
-	set_targets(sa, sb);
 }
 
 void	sort(t_stack *sa, t_stack *sb)
 {
-	t_node	*node;
-	int		i;
+	int	i;
 
 	push(sa, sb, 'b');
 	push(sa, sb, 'b');
-	update_index(sa);
-	update_index(sb);
-	set_targets(sa, sb);
 	while (sa->length)
 	{
-		node = sa->cheapest;
-		move(sa, sb, node);
+		set_targets(sa, sb);
+		move(sa, sb, sa->cheapest);
 	}
 	i = sb->max->index;
 	if (i <= sb->length / 2.0)

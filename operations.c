@@ -31,6 +31,8 @@ int	swap(t_stack *sa, t_stack *sb, char s)
 		stack_swap(sb);
 		ft_printf("ss\n");
 	}
+	update_index(sa);
+	update_index(sb);
 	return (1);
 }
 
@@ -46,6 +48,8 @@ int	push(t_stack *sa, t_stack *sb, char s)
 		stack_push(sb, stack_pop(sa));
 		ft_printf("pb\n");
 	}
+	update_index(sa);
+	update_index(sb);
 	return (1);
 }
 
@@ -67,6 +71,8 @@ int	rotate(t_stack *sa, t_stack *sb, char s)
 		stack_rotate(sb);
 		ft_printf("rr\n");
 	}
+	update_index(sa);
+	update_index(sb);
 	return (1);
 }
 
@@ -88,5 +94,7 @@ int	reverse(t_stack *sa, t_stack *sb, char s)
 		stack_reverse(sb);
 		ft_printf("rrr\n");
 	}
+	update_index(sa);
+	update_index(sb);
 	return (1);
 }
