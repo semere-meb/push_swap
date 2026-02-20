@@ -70,9 +70,9 @@ int					node_val(t_stack *stack, int index);
 int					node_index(t_stack *stack, int val);
 
 // operations.c
-int					swap(t_stack *sa, t_stack *sb, char s);
-int					push(t_stack *sa, t_stack *sb, char s);
-int					rotate(t_stack *sa, t_stack *sb, char s);
-int					reverse(t_stack *sa, t_stack *sb, char s);
+int					swap(t_stack *sa, t_stack *sb, char s, int is_print);
+int					push(t_stack *sa, t_stack *sb, char s, int is_print);
+int					rotate(t_stack *sa, t_stack *sb, char s, int is_print);
+int					reverse(t_stack *sa, t_stack *sb, char s, int is_print);
 
 #endif

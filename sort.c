@@ -17,37 +17,37 @@ static void	move(t_stack *sa, t_stack *sb, t_node *n)
 	while (n->c_cost)
 	{
 		if (n->c_cost > 0)
-			n->c_cost -= rotate(sa, sb, 's');
+			n->c_cost -= rotate(sa, sb, 's', 1);
 		else if (n->c_cost < 0)
-			n->c_cost += reverse(sa, sb, 's');
+			n->c_cost += reverse(sa, sb, 's', 1);
 	}
 	while (n->n_cost)
 	{
 		if (n->n_cost > 0)
-			n->n_cost -= rotate(sa, sb, 'a');
+			n->n_cost -= rotate(sa, sb, 'a', 1);
 		else if (n->n_cost < 0)
-			n->n_cost += reverse(sa, sb, 'a');
+			n->n_cost += reverse(sa, sb, 'a', 1);
 	}
 	while (n->t_cost)
 	{
 		if (n->t_cost > 0)
-			n->t_cost -= rotate(sa, sb, 'b');
+			n->t_cost -= rotate(sa, sb, 'b', 1);
 		else if (n->t_cost < 0)
-			n->t_cost += reverse(sa, sb, 'b');
+			n->t_cost += reverse(sa, sb, 'b', 1);
 	}
-	push(sa, sb, 'b');
+	push(sa, sb, 'b', 1);
 }
 
 static void	sort_three(t_stack *s)
 {
 	if (s->head == s->min && s->head->next == s->max)
-		swap(s, NULL, 'a');
+		swap(s, NULL, 'a', 1);
 	if (s->head == s->max)
-		rotate(s, NULL, 'a');
+		rotate(s, NULL, 'a', 1);
 	if (!is_sorted(s) && s->head->prev == s->max)
-		swap(s, NULL, 'a');
+		swap(s, NULL, 'a', 1);
 	else if (!is_sorted(s) && s->head->prev == s->min)
-		reverse(s, NULL, 'a');
+		reverse(s, NULL, 'a', 1);
 }
 
 static t_node	*get_asc_target(t_node *n, t_stack *s)
@@ -70,10 +70,10 @@ static void	move_top(t_stack *s, t_node *n)
 {
 	if (n->index <= s->length / 2.0)
 		while (n->index)
-			rotate(s, NULL, 'a');
+			rotate(s, NULL, 'a', 1);
 	else
 		while (n->index)
-			reverse(s, NULL, 'a');
+			reverse(s, NULL, 'a', 1);
 }
 
 void	sort(t_stack *sa, t_stack *sb)
@@ -84,7 +84,7 @@ void	sort(t_stack *sa, t_stack *sb)
 	update_index(sb);
 	i = 2;
 	while (i-- && sa->length > 3)
-		push(sa, sb, 'b');
+		push(sa, sb, 'b', 1);
 	while (sa->length > 3)
 	{
 		set_targets(sa, sb);
@@ -94,7 +94,7 @@ void	sort(t_stack *sa, t_stack *sb)
 	while (sb->head)
 	{
 		move_top(sa, get_asc_target(sb->head, sa));
-		push(sa, sb, 'a');
+		push(sa, sb, 'a', 1);
 	}
 	move_top(sa, sa->min);
 }
