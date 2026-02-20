@@ -24,7 +24,7 @@ int	swap(t_stack *sa, t_stack *sb, char s, int is_print)
 	else if (s == 'b')
 	{
 		stack_swap(sb);
-			ft_printf("sb\n");
+		ft_printf("sb\n");
 	}
 	else if (s == 's')
 	{
