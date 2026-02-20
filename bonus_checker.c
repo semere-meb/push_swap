@@ -28,8 +28,8 @@ int do_op(char *nl, t_stack *sa, t_stack *sb) {
 	else if (!ft_strncmp(nl, "rrr\n", -1))
 		reverse(sa, sb, 's', 0);
 	else
-		return(ft_printf("Error\n"), 0);
-	return 1;
+		return(free(nl), ft_printf("Error\n"), 0);
+	return (free(nl), 1);
 }
 
 int read_n_op(t_stack *sa, t_stack *sb) {

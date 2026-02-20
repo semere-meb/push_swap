@@ -101,10 +101,8 @@ void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
 
+// get_next_line_bonus.c
 char				*get_next_line(int fd);
-ssize_t				get_index(const char *s, char c, size_t size);
-char				*append_buff(char *s1, char *s2, size_t size);
-void				shift_remainder(char *buff, size_t start, size_t size);
 
 // ft_printf.c
 int					ft_printf(const char *f, ...);

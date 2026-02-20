@@ -54,8 +54,7 @@ SRCS = ft_atoi.c \
 	ft_lstmap.c \
 	ft_lstnew.c \
 	ft_lstsize.c \
-	get_next_line.c \
-	get_next_line_utils.c \
+	get_next_line_bonus.c \
 	converter.c \
 	ft_printf.c \
 	handlers1.c \

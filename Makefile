@@ -32,7 +32,7 @@ clean:
 	$(MAKE) -C $(LIBFTDIR) clean
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME) $(B_NAME)
 	$(MAKE) -C $(LIBFTDIR) fclean
 
 re: fclean all
