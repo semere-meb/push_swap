@@ -23,3 +23,20 @@ int	is_str_digit(char *str)
 			return (0);
 	return (1);
 }
+
+void	free_mem(char **argv, int argc, t_stack *sa, t_stack *sb)
+{
+	int	i;
+
+	i = 0;
+	stack_iter(sa, &free);
+	free(sa);
+	stack_iter(sb, &free);
+	free(sb);
+	if (argc == 2)
+	{
+		while (argv[i])
+			free(argv[i++]);
+		free(argv);
+	}
+}

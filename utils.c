@@ -41,28 +41,21 @@ long	ft_atol(const char *nptr)
 int	parse_input(int count, char **args, t_stack *stack)
 {
 	long	val;
-	char	**res;
-	int		i;
 
+	if (count == 1)
+	{
+		count = 0;
+		while (args[count])
+			count++;
+	}
 	while (--count >= 0)
 	{
-		res = ft_split(args[count], ' ');
-		i = 0;
-		while (res[i])
-			i++;
-		while (--i >= 0)
-		{
-			if (!is_str_digit(res[i]))
-				return (ft_printf("Error\n", 0));
-			val = ft_atol(res[i]);
-			if (val < INT_MIN || val > INT_MAX)
-				return (ft_printf("Error\n"), 0);
-			if (node_index(stack, val) != -1)
-				return (ft_printf("Error\n"), 0);
-			stack_push(stack, node_new(val));
-			free(res[i]);
-		}
-		free(res);
+		if (!is_str_digit(args[count]))
+			return (ft_printf("Error\n"), 0);
+		val = ft_atol(args[count]);
+		if (val < INT_MIN || val > INT_MAX || node_index(stack, val) != -1)
+			return (ft_printf("Error\n"), 0);
+		stack_push(stack, node_new(val));
 	}
 	return (1);
 }

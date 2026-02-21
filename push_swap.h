@@ -50,6 +50,7 @@ int					abs(int a);
 
 // utils2.c
 int					is_str_digit(char *str);
+void				free_mem(char **argv, int argc, t_stack *sa, t_stack *sb);
 
 // update.c
 void				set_targets(t_stack *stack_a, t_stack *stack_b);

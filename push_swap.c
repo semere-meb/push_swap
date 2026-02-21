@@ -10,27 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft/libft.h"
 #include "push_swap.h"
 #include <stdlib.h>
 
 int	main(int argc, char **argv)
 {
-	t_stack	*stack_a;
-	t_stack	*stack_b;
-	int		res;
+	t_stack	*sa;
+	t_stack	*sb;
 
-	if (argc == 1)
-		return (1);
-	stack_a = malloc(sizeof(t_stack));
-	stack_b = malloc(sizeof(t_stack));
-	if (!stack_a || !stack_b)
-		return (1);
-	stack_a->head = NULL;
-	stack_b->head = NULL;
-	if (!parse_input(argc - 1, &argv[1], stack_a))
-		return (1);
-	if (!is_sorted(stack_a))
-		sort(stack_a, stack_b);
-	res = is_sorted(stack_a);
-	return (stack_iter(stack_a, &free), free(stack_a), free(stack_b), res);
+	sa = malloc(sizeof(t_stack));
+	sb = malloc(sizeof(t_stack));
+	sa->head = NULL;
+	sb->head = NULL;
+	argv++;
+	if (argc == 1 || !sa || !sb)
+		return (0);
+	if (argc == 2)
+		argv = ft_split(argv[0], ' ');
+	if (parse_input(argc - 1, argv, sa) && !is_sorted(sa))
+		sort(sa, sb);
+	free_mem(argv, argc, sa, sb);
+	return (0);
 }

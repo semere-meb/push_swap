@@ -16,7 +16,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-int	do_op(char *nl, t_stack *sa, t_stack *sb)
+static int	do_op(char *nl, t_stack *sa, t_stack *sb)
 {
 	if (!ft_strncmp(nl, "sa\n", -1))
 		swap(sa, sb, 'a', 0);
@@ -45,7 +45,7 @@ int	do_op(char *nl, t_stack *sa, t_stack *sb)
 	return (free(nl), 1);
 }
 
-int	read_n_op(t_stack *sa, t_stack *sb)
+static int	read_n_op(t_stack *sa, t_stack *sb)
 {
 	char	*nl;
 
@@ -65,20 +65,22 @@ int	main(int argc, char **argv)
 	t_stack	*sa;
 	t_stack	*sb;
 
-	if (argc == 1)
-		return (1);
 	sa = malloc(sizeof(t_stack));
 	sb = malloc(sizeof(t_stack));
-	if (!sa || !sb)
-		return (1);
 	sa->head = NULL;
 	sb->head = NULL;
-	if (parse_input(argc - 1, &argv[1], sa) && read_n_op(sa, sb))
+	argv++;
+	if (argc == 1 || !sa || !sb)
+		return (0);
+	if (argc == 2)
+		argv = ft_split(argv[0], ' ');
+	if (parse_input(argc - 1, argv, sa) && read_n_op(sa, sb))
 	{
-		if (is_sorted(sa) && !sb->head)
+		if (is_sorted(sa))
 			ft_printf("OK\n");
 		else
 			ft_printf("KO\n");
 	}
-	return (stack_iter(sa, &free), free(sa), free(sb), 0);
+	free_mem(argv, argc, sa, sb);
+	return (0);
 }
