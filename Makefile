@@ -2,7 +2,7 @@ NAME = push_swap
 B_NAME = checker
 
 LIBFTDIR = libft
-LIBFT = libft.a
+LIBFT = $(LIBFTDIR)/libft.a
 
 SHARED = operations.c stack.c stack2.c utils.c utils2.c sort.c update.c
 
@@ -17,15 +17,19 @@ CFLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
+bonus: $(B_NAME)
+
 $(LIBFT):
 	$(MAKE) -C $(LIBFTDIR)
 
-$(NAME): $(OBJS) $(LIBFT)
-	cp $(LIBFTDIR)/$(LIBFT) .
-	$(CC) $(CFLAGS) $(OBJS) -L. -lft -o $@
-
 %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
+
+$(NAME): $(OBJS) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJS) -L $(LIBFTDIR) -lft -o $@
+
+$(B_NAME): $(B_OBJS) $(LIBFT)
+	$(CC) $(CFLAGS) $(B_OBJS) -L $(LIBFTDIR) -lft -o $@
 
 clean:
 	rm -f $(OBJS) $(B_OBJS) $(LIBFT)
@@ -36,11 +40,5 @@ fclean: clean
 	$(MAKE) -C $(LIBFTDIR) fclean
 
 re: fclean all
-
-bonus: $(B_NAME)
-
-$(B_NAME): $(B_OBJS) $(LIBFT)
-	cp $(LIBFTDIR)/$(LIBFT) .
-	$(CC) $(CFLAGS) $(B_OBJS) -L. -lft -o $@
 
 .PHONY: all clean fclean re
