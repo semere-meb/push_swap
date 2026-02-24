@@ -53,7 +53,9 @@ int	parse_input(int count, char **args, t_stack *stack)
 		if (!is_str_digit(args[count]))
 			return (ft_printf("Error\n"), 0);
 		val = ft_atol(args[count]);
-		if (val < INT_MIN || val > INT_MAX || node_index(stack, val) != -1)
+		if (val < INT_MIN || val > INT_MAX)
+			return (ft_printf("Error\n"), 0);
+		if (node_index(stack, val) != -1)
 			return (ft_printf("Error\n"), 0);
 		stack_push(stack, node_new(val));
 	}
