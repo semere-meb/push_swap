@@ -19,13 +19,15 @@ int	main(int argc, char **argv)
 	t_stack	*sa;
 	t_stack	*sb;
 
+	if (argc == 1)
+		return (0);
 	sa = malloc(sizeof(t_stack));
 	sb = malloc(sizeof(t_stack));
+	if (!sa || !sb)
+		return (0);
 	sa->head = NULL;
 	sb->head = NULL;
 	argv++;
-	if (argc == 1 || !sa || !sb)
-		return (0);
 	if (argc == 2)
 		argv = ft_split(argv[0], ' ');
 	if (parse_input(argc - 1, argv, sa) && !is_sorted(sa))
