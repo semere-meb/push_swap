@@ -65,18 +65,22 @@ int	main(int argc, char **argv)
 	t_stack	*sa;
 	t_stack	*sb;
 
+	if (argc == 1)
+		return (0);
 	sa = malloc(sizeof(t_stack));
+	if (!sa)
+		return (0);
 	sb = malloc(sizeof(t_stack));
+	if (!sb)
+		return (free(sa), 0);
 	sa->head = NULL;
 	sb->head = NULL;
 	argv++;
-	if (argc == 1 || !sa || !sb)
-		return (0);
 	if (argc == 2)
 		argv = ft_split(argv[0], ' ');
 	if (parse_input(argc - 1, argv, sa) && read_n_op(sa, sb))
 	{
-		if (is_sorted(sa))
+		if (is_sorted(sa) && !sb->head)
 			ft_printf("OK\n");
 		else
 			ft_printf("KO\n");

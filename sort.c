@@ -81,7 +81,6 @@ void	sort(t_stack *sa, t_stack *sb)
 	int	i;
 
 	update_index(sa);
-	update_index(sb);
 	i = 2;
 	while (i-- && sa->length > 3)
 		push(sa, sb, 'b', 1);

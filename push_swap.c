@@ -21,9 +21,11 @@ int	main(int argc, char **argv)
 	if (argc == 1)
 		return (0);
 	sa = malloc(sizeof(t_stack));
-	sb = malloc(sizeof(t_stack));
-	if (!sa || !sb)
+	if (!sa)
 		return (0);
+	sb = malloc(sizeof(t_stack));
+	if (!sb)
+		return (free(sa), 0);
 	sa->head = NULL;
 	sb->head = NULL;
 	argv++;
